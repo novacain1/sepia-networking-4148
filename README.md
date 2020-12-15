@@ -1,4 +1,4 @@
-# sepia-networking-4148pair
+# sepia-networking-4148
 This playbook is responsible for the full configuration aspects of the Dell PowerSwitch S4148F-ON switch pair that powers the Ceph.com community cage private network.  The switches are configured in a vLT (Dell's Multichassis Link aggregation feature) with full HA down to all of the Dell PowerEdge R730xd, R730, R220 systems in the rack itself.
 
 Note that the switches *must* be reachable via their IPv4 management interface (typically mgmt 1/1/1).  It is assumed that the switch pair is reachable and the admin username and credentials are known.  This repo takes care of every other configuration task (system, stp, vlt, lag, interfaces, vlans, ntp, etc).
