@@ -1,0 +1,29 @@
+---
+# This playbook expects to work with Dell EMC Networking Galaxy roles:
+# https://galaxy.ansible.com/Dell-Networking/dellos-system
+#
+
+- hosts:
+    - refarch-sw01
+    - refarch-sw02
+  gather_facts: yes
+  connection: local
+
+  roles:
+    - role: ansible-roles/Dell-Networking.dellos-system
+    - role: ansible-roles/Dell-Networking.dellos-aaa
+    #- role: ansible-roles/Dell-Networking.dellos-lldp
+    - role: ansible-roles/Dell-Networking.dellos-dns
+    - role: ansible-roles/Dell-Networking.dellos-ntp
+    - role: ansible-roles/Dell-Networking.dellos-interface
+    - role: ansible-roles/Dell-Networking.dellos-xstp
+    - role: ansible-roles/Dell-Networking.dellos-vlan
+    - role: ansible-roles/Dell-Networking.dellos-lag
+    - role: ansible-roles/Dell-Networking.dellos-vlt
+
+  tasks:
+    - name: "Get Dell EMC OS10 Show version"
+      dellos10_command:
+        commands: ['show version']
+      register: show_ver
+    - debug: var=show_ver

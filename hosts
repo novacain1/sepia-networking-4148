@@ -1,0 +1,12 @@
+all:
+  hosts:
+    refarch-sw01:
+      ansible_host: 172.21.32.1
+      ansible_user: admin
+      ansible_password: CHANGEME
+      ansible_network_os: dellos10
+    refarch-sw02:
+      ansible_host: 172.21.32.2
+      ansible_user: admin
+      ansible_password: CHANGEME
+      ansible_network_os: dellos10
