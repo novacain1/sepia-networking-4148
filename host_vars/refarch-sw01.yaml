@@ -1,0 +1,653 @@
+# https://galaxy.ansible.com/Dell-Networking/dellos-system
+dellos_system:
+  hostname: "{{ inventory_hostname }}"
+  service_passwd_encryption: true
+  line_terminal:
+    console 0:
+      exec_timeout: 40 200
+  load_balance:
+    ingress_port: true
+    ip_selection:
+       - field: vlan-id destination-ip
+         state: present
+    ipv6_selection:
+       - field: destination-ip vlan-id
+         state: present
+  management_rt:
+    - ip: 172.21.47.254
+      state: present
+      ipv4: True
+  clock:
+    summer_time:
+      timezone_name: EST
+      type: date
+    timezone:
+      name: EST
+      offset_hours: -4
+
+# https://galaxy.ansible.com/Dell-Networking/dellos-aaa
+dellos_aaa:
+  aaa_authentication:
+    auth_list:
+      - name: default
+        login_or_enable: login
+        use_password: local
+        state: present
+
+
+# https://galaxy.ansible.com/Dell-Networking/dellos-lldp
+dellos_lldp:
+  enable: true
+  advertise:
+    med:
+      global_med: true
+  med:
+    enable: true
+
+
+# https://galaxy.ansible.com/Dell-Networking/dellos-dns
+dellos_dns:
+  #domain_lookup: true
+  dns_search: sepia.ceph.com
+  name_server:
+    - ip:
+      - 172.21.0.1
+      - 172.21.0.2
+      vrf:
+      - default
+      state: present
+
+# https://galaxy.ansible.com/Dell-Networking/dellos-ntp
+dellos_ntp:
+  source: mgmt 1/1/1
+  authenticate: false
+  server:
+    - ip: 45.55.58.103
+      state: present
+    - ip: 45.127.113.2
+      state: present
+    - ip: 47.144.196.17
+      state: present
+
+# https://galaxy.ansible.com/Dell-Networking/dellos-interface
+dellos_interface:
+    ethernet 1/1/1:
+      admin: up
+      desc: "r730xd-05"
+      ip_and_mask:
+    ethernet 1/1/2:
+      admin: up
+      desc: "r730xd-04"
+      ip_and_mask:
+    ethernet 1/1/3:
+      admin: up
+      desc: "r730xd-03"
+      ip_and_mask:
+    ethernet 1/1/4:
+      admin: up
+      desc: "r730xd-02"
+      ip_and_mask:
+    ethernet 1/1/5:
+      admin: up
+      desc: "r730xd-01"
+      ip_and_mask:
+    ethernet 1/1/15:
+      admin: up
+      desc: "r220-02"
+      ip_and_mask:
+    ethernet 1/1/16:
+      admin: up
+      desc: "r220-01"
+      ip_and_mask:
+    ethernet 1/1/17:
+      admin: up
+      desc: "r220-10"
+      ip_and_mask:
+    ethernet 1/1/18:
+      admin: up
+      desc: "r220-09"
+      ip_and_mask:
+    ethernet 1/1/19:
+      admin: up
+      desc: "r220-08"
+      ip_and_mask:
+    ethernet 1/1/20:
+      admin: up
+      desc: "r220-07"
+      ip_and_mask:
+    ethernet 1/1/21:
+      admin: up
+      desc: "r220-06"
+      ip_and_mask:
+    ethernet 1/1/22:
+      admin: up
+      desc: "r220-05"
+      ip_and_mask:
+    ethernet 1/1/23:
+      admin: up
+      desc: "r220-04"
+      ip_and_mask:
+    ethernet 1/1/24:
+      admin: up
+      desc: "r220-03"
+      ip_and_mask:
+    ethernet 1/1/29:
+      admin: up
+      desc: "E1/1/29-VLT"
+      ip_and_mask:
+    ethernet 1/1/30:
+      admin: up
+      desc: "E1/1/30-VLT"
+      ip_and_mask:
+    ethernet 1/1/33:
+      admin: up
+      desc: "r640-03"
+      ip_and_mask:
+    ethernet 1/1/34:
+      admin: up
+      desc: "r640-02"
+      ip_and_mask:
+    ethernet 1/1/35:
+      admin: up
+      desc: "r640-01"
+      ip_and_mask:
+
+    port-channel 1:
+      admin: up
+      desc: "PO1-R730XD-05"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 2:
+      admin: up
+      desc: "PO2-R730XD-04"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 3:
+      admin: up
+      desc: "PO3-R730XD-03"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 4:
+      admin: up
+      desc: "PO4-R730XD-02"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 5:
+      admin: up
+      desc: "PO5-R730XD-01"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 15:
+      admin: up
+      desc: "PO15-R220-02"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 16:
+      admin: up
+      desc: "PO16-R220-01"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 17:
+      admin: up
+      desc: "PO17-R220-10"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 18:
+      admin: up
+      desc: "PO18-R220-09"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 19:
+      admin: up
+      desc: "PO19-R220-08"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 20:
+      admin: up
+      desc: "PO20-R220-07"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 21:
+      admin: up
+      desc: "PO21-R220-06"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 22:
+      admin: up
+      desc: "PO22-R220-05"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 23:
+      admin: up
+      desc: "PO23-R220-04"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 24:
+      admin: up
+      desc: "PO24-R220-03"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 33:
+      admin: up
+      desc: "PO33-R640-03"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 34:
+      admin: up
+      desc: "PO34-R640-02"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 35:
+      admin: up
+      desc: "PO33-R640-01"
+      ip_and_mask:
+      mtu: 9216  
+      switchport: true
+      portmode: trunk  
+    port-channel 128:
+      admin: up
+      desc: "PO128-VLT"
+      ip_and_mask:
+      portmode: trunk  
+
+    vlan 120:
+      desc: "Provisioning"
+      ip_and_mask:
+      admin: up
+    vlan 140:
+      desc: "Internal API"
+      ip_and_mask:
+      admin: up
+    vlan 170:
+      desc: "Storage"
+      ip_and_mask:
+      admin: up
+    vlan 180:
+      desc: "Storage Mgmt"
+      ip_and_mask:
+      admin: up
+    vlan 201:
+      desc: "Tenant201"
+      ip_and_mask:
+      admin: up
+
+# https://galaxy.ansible.com/Dell-Networking/dellos-xstp
+dellos_xstp:
+  type: rstp
+  enable: true
+  rstp:
+    bridge_priority: 16384
+    state: present
+  intf:
+    Port-channel 1:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 2:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 3:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 4:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 5:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 15:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 16:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 17:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 18:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 19:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 20:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 21:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 22:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 23:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 24:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 33:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 34:
+      stp_type:
+        - rstp
+      edge_port: true
+    Port-channel 35:
+      stp_type:
+        - rstp
+      edge_port: true
+
+# https://galaxy.ansible.com/Dell-Networking/dellos-vlan
+dellos_vlan:
+    vlan 120:
+      description: "Provisioning"
+      untagged_members:
+        - port: "range port-channel 1-5"
+          state: present
+        - port: "range port-channel 15-24"
+          state: present
+        - port: "range port-channel 33-35"
+          state: present
+      state: present
+    vlan 140:
+      description: "Internal API"
+      tagged_members:
+        - port: "range port-channel 1-5"
+          state: present
+        - port: "range port-channel 15-24"
+          state: present
+        - port: "range port-channel 33-35"
+          state: present
+      state: present
+    vlan 170:
+      description: "Storage"
+      tagged_members:
+        - port: "range port-channel 1-5"
+          state: present
+        - port: "range port-channel 15-24"
+          state: present
+        - port: "range port-channel 33-35"
+          state: present
+      state: present
+    vlan 180:
+      description: "Storage Mgmt"
+      tagged_members:
+        - port: "range port-channel 1-5"
+          state: present
+        - port: "range port-channel 15-24"
+          state: present
+        - port: "range port-channel 33-35"
+          state: present
+      state: present
+    vlan 201:
+      description: "Tenant201"
+      tagged_members:
+        - port: "range port-channel 1-5"
+          state: present
+        - port: "range port-channel 15-24"
+          state: present
+        - port: "range port-channel 33-35"
+          state: present
+      state: present
+    vlan 202:
+      description: "Tenant202"
+      tagged_members:
+        - port: "range port-channel 1-5"
+          state: present
+        - port: "range port-channel 15-24"
+          state: present
+        - port: "range port-channel 33-35"
+          state: present
+      state: present
+
+#https://github.com/Dell-Networking/ansible-role-dellos-lag
+dellos_lag:
+  Po 1:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/1
+        mode: active
+        state: present
+    state: present
+  Po 2:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/2
+        mode: active
+        state: present
+    state: present
+  Po 3:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/3
+        mode: active
+        state: present
+    state: present
+  Po 4:
+    type: dynamic
+    lacp_fallback_enable: true
+    state: present
+  Po 5:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/5
+        mode: active
+        state: present
+    state: present
+  Po 15:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/15
+        mode: active
+        state: present
+    state: present
+  Po 16:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/16
+        mode: active
+        state: present
+    state: present
+  Po 17:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/17
+        mode: active
+        state: present
+    state: present
+  Po 18:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/18
+        mode: active
+        state: present
+    state: present
+  Po 19:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/19
+        mode: active
+        state: present
+    state: present
+  Po 20:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/20
+        mode: active
+        state: present
+    state: present
+  Po 21:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/21
+        mode: active
+        state: present
+    state: present
+  Po 22:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/22
+        mode: active
+        state: present
+    state: present
+  Po 23:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/23
+        mode: active
+        state: present
+    state: present
+  Po 24:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/24
+        mode: active
+        state: present
+    state: present
+  Po 33:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/33
+        mode: active
+        state: present
+    state: present
+  Po 34:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/34
+        mode: active
+        state: present
+    state: present
+  Po 35:
+    type: dynamic
+    lacp_fallback_enable: true
+    channel_members:
+      - port: ethernet 1/1/35
+        mode: active
+        state: present
+    state: present
+  #Po 128:
+  #  type: dynamic
+  #  lacp:
+  #  channel_members:
+  #    - port: ethernet 1/1/29
+  #      mode: active
+  #      state: present
+  #    - port: ethernet 1/1/30
+  #      mode: active
+  #      state: present
+  #  state: present
+
+# https://galaxy.ansible.com/Dell-Networking/dellos-vlt
+dellos_vlt:
+    domain: 1
+    backup_destination: 172.21.32.2
+    priority: 1
+    VLTi: 128
+    peer_routing: false
+    unit_id: 0
+    delay_restore: 100
+    delay_restore_abort_threshold: 110
+    state: present
+    vlt_peers:
+      Po 1:
+        peer_lag: 1
+      Po 2:
+        peer_lag: 2
+      Po 3:
+        peer_lag: 3
+      Po 4:
+        peer_lag: 4
+      Po 5:
+        peer_lag: 5
+      Po 15:
+        peer_lag: 15
+      Po 16:
+        peer_lag: 16
+      Po 17:
+        peer_lag: 17
+      Po 18:
+        peer_lag: 18
+      Po 19:
+        peer_lag: 19
+      Po 20:
+        peer_lag: 20
+      Po 21:
+        peer_lag: 21
+      Po 22:
+        peer_lag: 22
+      Po 23:
+        peer_lag: 23
+      Po 24:
+        peer_lag: 24
+      Po 33:
+        peer_lag: 33
+      Po 34:
+        peer_lag: 34
+      Po 35:
+        peer_lag: 35
